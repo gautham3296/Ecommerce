@@ -48,7 +48,7 @@ async function getDbPool() {
     dbLastError = null;
 
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS nalam_orders (
+      CREATE TABLE IF NOT EXISTS studio_orders (
         id VARCHAR(100) PRIMARY KEY,
         payment_id VARCHAR(100) NOT NULL,
         date VARCHAR(100) NOT NULL,
@@ -63,18 +63,18 @@ async function getDbPool() {
 
     // Add status and tracking_id columns if they don't already exist
     try {
-      await connection.query("ALTER TABLE nalam_orders ADD COLUMN status VARCHAR(50) DEFAULT 'Processing'");
+      await connection.query("ALTER TABLE studio_orders ADD COLUMN status VARCHAR(50) DEFAULT 'Processing'");
     } catch (err: any) {
       // Column likely already exists, ignore
     }
     try {
-      await connection.query("ALTER TABLE nalam_orders ADD COLUMN tracking_id VARCHAR(100) DEFAULT NULL");
+      await connection.query("ALTER TABLE studio_orders ADD COLUMN tracking_id VARCHAR(100) DEFAULT NULL");
     } catch (err: any) {
       // Column likely already exists, ignore
     }
 
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS nalam_order_items (
+      CREATE TABLE IF NOT EXISTS studio_order_items (
         id INT AUTO_INCREMENT PRIMARY KEY,
         order_id VARCHAR(100) NOT NULL,
         item_id VARCHAR(100) NOT NULL,
@@ -83,13 +83,13 @@ async function getDbPool() {
         price DECIMAL(10, 2) NOT NULL,
         quantity INT NOT NULL,
         hero_image TEXT,
-        FOREIGN KEY (order_id) REFERENCES nalam_orders(id) ON DELETE CASCADE
+        FOREIGN KEY (order_id) REFERENCES studio_orders(id) ON DELETE CASCADE
       )
     `);
 
-    // Bootstrap nalam_products table
+    // Bootstrap studio_products table
     await connection.query(`
-      CREATE TABLE IF NOT EXISTS nalam_products (
+      CREATE TABLE IF NOT EXISTS studio_products (
         id VARCHAR(100) PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         scientific_name VARCHAR(255),
@@ -109,12 +109,12 @@ async function getDbPool() {
     `);
 
     // Check if table has any rows. If 0, seed first
-    const [prodRows] = await connection.query("SELECT COUNT(*) as count FROM nalam_products");
+    const [prodRows] = await connection.query("SELECT COUNT(*) as count FROM studio_products");
     if ((prodRows as any)[0].count === 0) {
-      console.log("🌱 Database connected. Seeding nalam_products table with initial botanical portfolio...");
+      console.log("🌱 Database connected. Seeding studio_products table with initial design portfolio...");
       for (const p of initialProducts) {
         await connection.query(
-          `INSERT INTO nalam_products (id, name, scientific_name, price, original_price, description, short_description, flavor_profile, tags, category, hero_image, secondary_image, benefits, contraindications, brewing_ritual)
+          `INSERT INTO studio_products (id, name, scientific_name, price, original_price, description, short_description, flavor_profile, tags, category, hero_image, secondary_image, benefits, contraindications, brewing_ritual)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             p.id,
@@ -252,10 +252,10 @@ async function startServer() {
           const dbPool = await getDbPool();
           if (dbPool && shipping && items) {
             // Check if order already exists to support idempotency/retries safely
-            const [existing] = await dbPool.query("SELECT id FROM nalam_orders WHERE id = ?", [razorpay_order_id]);
+            const [existing] = await dbPool.query("SELECT id FROM studio_orders WHERE id = ?", [razorpay_order_id]);
             if ((existing as any[]).length === 0) {
               await dbPool.query(
-                `INSERT INTO nalam_orders (id, payment_id, date, amount, consignee_name, contact_number, shipping_address, shipping_state, shipping_pincode)
+                `INSERT INTO studio_orders (id, payment_id, date, amount, consignee_name, contact_number, shipping_address, shipping_state, shipping_pincode)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                 [
                   razorpay_order_id,
@@ -272,7 +272,7 @@ async function startServer() {
 
               for (const item of items) {
                 await dbPool.query(
-                  `INSERT INTO nalam_order_items (order_id, item_id, name, scientific_name, price, quantity, hero_image)
+                  `INSERT INTO studio_order_items (order_id, item_id, name, scientific_name, price, quantity, hero_image)
                    VALUES (?, ?, ?, ?, ?, ?, ?)`,
                   [
                     razorpay_order_id,
@@ -320,7 +320,7 @@ async function startServer() {
         if (dbPool && shipping && items) {
           const parsedAmount = total || items.reduce((sum: number, i: any) => sum + (i.price * i.quantity), 0);
           await dbPool.query(
-            `INSERT INTO nalam_orders (id, payment_id, date, amount, consignee_name, contact_number, shipping_address, shipping_state, shipping_pincode)
+            `INSERT INTO studio_orders (id, payment_id, date, amount, consignee_name, contact_number, shipping_address, shipping_state, shipping_pincode)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
               orderId,
@@ -337,7 +337,7 @@ async function startServer() {
 
           for (const item of items) {
             await dbPool.query(
-              `INSERT INTO nalam_order_items (order_id, item_id, name, scientific_name, price, quantity, hero_image)
+              `INSERT INTO studio_order_items (order_id, item_id, name, scientific_name, price, quantity, hero_image)
                VALUES (?, ?, ?, ?, ?, ?, ?)`,
               [
                 orderId,
@@ -385,7 +385,7 @@ async function startServer() {
       const normalizedInputName = String(name).trim().toLowerCase();
       const normalizedInputContact = String(contact).trim().replace(/\s+/g, '');
 
-      const [rows] = await dbPool.query(`SELECT * FROM nalam_orders`);
+      const [rows] = await dbPool.query(`SELECT * FROM studio_orders`);
 
       const matchedOrders: any[] = [];
       for (const order of (rows as any[])) {
@@ -393,7 +393,7 @@ async function startServer() {
         const dbContact = (order.contact_number || '').trim().replace(/\s+/g, '');
 
         if (dbName === normalizedInputName && dbContact === normalizedInputContact) {
-          const [itemRows] = await dbPool.query("SELECT * FROM nalam_order_items WHERE order_id = ?", [order.id]);
+          const [itemRows] = await dbPool.query("SELECT * FROM studio_order_items WHERE order_id = ?", [order.id]);
 
           matchedOrders.push({
             id: order.id,
@@ -436,11 +436,11 @@ async function startServer() {
         return res.json({ source: "fallback", orders: [] });
       }
 
-      const [orderRows] = await dbPool.query("SELECT * FROM nalam_orders ORDER BY date DESC");
+      const [orderRows] = await dbPool.query("SELECT * FROM studio_orders ORDER BY date DESC");
       
       const formattedOrders = [];
       for (const order of (orderRows as any[])) {
-        const [itemRows] = await dbPool.query("SELECT * FROM nalam_order_items WHERE order_id = ?", [order.id]);
+        const [itemRows] = await dbPool.query("SELECT * FROM studio_order_items WHERE order_id = ?", [order.id]);
         
         formattedOrders.push({
           id: order.id,
@@ -485,7 +485,7 @@ async function startServer() {
       const dbPool = await getDbPool();
       if (dbPool) {
         await dbPool.query(
-          "UPDATE nalam_orders SET status = ?, tracking_id = ? WHERE id = ?",
+          "UPDATE studio_orders SET status = ?, tracking_id = ? WHERE id = ?",
           [status, trackingId || null, orderId]
         );
         return res.json({ success: true, message: `Successfully updated order ${orderId} status to ${status}.` });
@@ -504,8 +504,8 @@ async function startServer() {
     try {
       const dbPool = await getDbPool();
       if (dbPool) {
-        await dbPool.query("DELETE FROM nalam_order_items");
-        await dbPool.query("DELETE FROM nalam_orders");
+        await dbPool.query("DELETE FROM studio_order_items");
+        await dbPool.query("DELETE FROM studio_orders");
         return res.json({ success: true, message: "Hostinger MySQL database tables successfully cleared." });
       }
       res.status(400).json({ success: false, error: "Database not connected" });
@@ -521,7 +521,7 @@ async function startServer() {
       if (!dbPool) {
         return res.json({ source: "fallback", products: [] });
       }
-      const [rows] = await dbPool.query("SELECT * FROM nalam_products");
+      const [rows] = await dbPool.query("SELECT * FROM studio_products");
       const formattedProducts = (rows as any[]).map(r => ({
         id: r.id,
         name: r.name,
@@ -581,10 +581,10 @@ async function startServer() {
       const brewingRitualStr = Array.isArray(brewingRitual) ? JSON.stringify(brewingRitual) : JSON.stringify([]);
       const tagsStr = Array.isArray(tags) ? tags.join(",") : (tags || "");
 
-      const [existing] = await dbPool.query("SELECT id FROM nalam_products WHERE id = ?", [id]);
+      const [existing] = await dbPool.query("SELECT id FROM studio_products WHERE id = ?", [id]);
       if ((existing as any[]).length > 0) {
         await dbPool.query(
-          `UPDATE nalam_products SET 
+          `UPDATE studio_products SET 
             name = ?, 
             scientific_name = ?, 
             price = ?, 
@@ -620,7 +620,7 @@ async function startServer() {
         );
       } else {
         await dbPool.query(
-          `INSERT INTO nalam_products (id, name, scientific_name, price, original_price, description, short_description, flavor_profile, tags, category, hero_image, secondary_image, benefits, contraindications, brewing_ritual)
+          `INSERT INTO studio_products (id, name, scientific_name, price, original_price, description, short_description, flavor_profile, tags, category, hero_image, secondary_image, benefits, contraindications, brewing_ritual)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             id,
@@ -663,7 +663,7 @@ async function startServer() {
       }
 
       // Check if product exists first
-      await dbPool.query("DELETE FROM nalam_products WHERE id = ?", [id]);
+      await dbPool.query("DELETE FROM studio_products WHERE id = ?", [id]);
       res.json({ success: true, message: `Successfully deleted product with ID: ${id}` });
     } catch (e: any) {
       console.error("Failed to delete product in Hostinger DB:", e);

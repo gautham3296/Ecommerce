@@ -543,27 +543,34 @@ export default function Admin() {
 
               <div className="bg-gray-50 border border-outline-variant/40 rounded-xl p-4 text-xs space-y-3">
                 <h4 className="font-bold text-[#48671c] font-sans">
-                  🛠️ How to Resolve Hostinger Port/Timeout issues:
+                  🛠️ How to Resolve Hostinger Port/Timeout & Connection issues:
                 </h4>
                 <ul className="list-decimal pl-4 space-y-2 text-on-surface-variant text-[11px] leading-relaxed">
                   <li>
-                    <span className="font-bold text-on-surface">Incorrect Host Address (Most Common)</span>:
-                    Hostinger databases usually do NOT allow public port 3306 queries through your domain name (<code className="bg-gray-200/60 px-1 py-0.5 rounded text-red-600">gray-jackal-950327.hostingersite.com</code>).
-                    Go to Hostinger's <span className="font-semibold text-on-surface">MySQL Databases</span> page, and copy the actual host specified under <strong className="font-bold text-on-surface">MySQL Host</strong> or <strong className="font-bold text-on-surface">MySQL Server</strong> (often it's an IP address or a server subdomain like <code className="bg-gray-200/60 px-1 py-0.5 rounded text-primary">sqlXXX.main-hosting.eu</code>). Ensure this is entered exactly in your AI Studio Settings environment secrets.
+                    <span className="font-bold text-on-surface">Remote MySQL Access (Crucial)</span>:
+                    Hostinger databases block external connections (like the AI Studio Preview environment) by default. 
+                    <p className="mt-1">
+                      1. Go to your Hostinger Control Panel and navigate to <span className="font-bold text-on-surface">MySQL Databases &rarr; Remote MySQL</span>.
+                    </p>
+                    <p className="mt-0.5">
+                      2. Add a remote host of <span className="font-bold text-green-700">%</span> (IP wildcard) to allow any external server connection, or add the specific IPv6/IPv4 address shown in the error.
+                    </p>
+                    <p className="mt-0.5">
+                      3. Make sure to click <span className="font-bold text-on-surface">Create</span> and verify that it is listed in the active remote connections list.
+                    </p>
                   </li>
                   <li>
-                    <span className="font-bold text-on-surface">Database Credentials Check</span>:
-                    Verify that your database variables correspond strictly to the values in Hostinger:
+                    <span className="font-bold text-on-surface">Host and Password Verification</span>:
+                    The error specifies <span className="font-semibold text-red-700 break-all">using password: YES</span>. This confirms that our preview connected to the Hostinger database, but was rejected. Double-check:
                     <ul className="list-disc pl-4 mt-1 space-y-1 text-gray-500">
-                      <li><code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_HOST</code>: The database server host described above.</li>
-                      <li><code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_USER</code>: <code className="bg-gray-200/30 px-1 text-on-surface">u787557456_nalambrews</code></li>
-                      <li><code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_NAME</code>: <code className="bg-gray-200/30 px-1 text-on-surface">u787557456_nalambrews</code></li>
-                      <li><code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_PASSWORD</code>: Your designated MySQL user password.</li>
+                      <li>The <code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_PASSWORD</code> environment secret matches your exact database password in Hostinger.</li>
+                      <li>The <code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_USER</code> and <code className="bg-gray-200/30 px-1 py-0.5 rounded">HOSTINGER_DB_NAME</code> are entered exactly as <code className="bg-gray-200/30 px-1 text-on-surface">u787557456_test</code>.</li>
                     </ul>
                   </li>
                   <li>
-                    <span className="font-bold text-on-surface">Remote MySQL Authorized Hosts</span>:
-                    You have successfully added <code className="bg-gray-200/60 px-1 py-0.5 rounded text-green-700">%</code> to remote hosts which allows external connectivity. Ensure the settings have saved correctly on Hostinger!
+                    <span className="font-bold text-on-surface">Incorrect Host Address</span>:
+                    Hostinger databases do not allow using your frontend domain (like <code className="bg-gray-200/60 px-1 py-0.5 rounded text-red-650">royalblue-badger-632213.hostingersite.com</code>) as the database host.
+                    Copy the host explicitly listed under <strong className="font-bold text-on-surface">MySQL Host</strong>, which is usually an IP or a subdomain like <code className="bg-gray-200/60 px-1 py-0.5 rounded text-primary">sqlXXX.main-hosting.eu</code>.
                   </li>
                 </ul>
               </div>
@@ -580,8 +587,8 @@ export default function Admin() {
               </p>
               <div className="bg-white/80 border border-orange-200/40 font-mono text-[10px] p-2.5 rounded-lg text-orange-950 space-y-1 w-fit">
                 <div>HOSTINGER_DB_HOST=your_hostinger_db_host</div>
-                <div>HOSTINGER_DB_USER=u787557456_nalambrews</div>
-                <div>HOSTINGER_DB_NAME=u787557456_nalambrews</div>
+                <div>HOSTINGER_DB_USER=u787557456_test</div>
+                <div>HOSTINGER_DB_NAME=u787557456_test</div>
                 <div>HOSTINGER_DB_PASSWORD=your_mysql_database_password</div>
               </div>
             </div>
