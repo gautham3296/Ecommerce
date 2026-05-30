@@ -128,9 +128,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'Nalam Brews',
-        description: 'Selected Herbal Health Soups',
-        image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&q=80&w=200',
+        name: 'Ecommerce',
+        description: 'Premium Minimalist Workspace Essentials',
+        image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=200',
         order_id: orderData.id,
         handler: async function (response: any) {
           try {
@@ -178,7 +178,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               shipping: { ...shippingForm }
             };
 
-            const existingOrdersStr = localStorage.getItem('nalam_brews_orders');
+            const existingOrdersStr = localStorage.getItem('ecommerce_work_orders');
             let existingOrders = [];
             if (existingOrdersStr) {
                try {
@@ -188,7 +188,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                }
             }
             existingOrders.push(newOrder);
-            localStorage.setItem('nalam_brews_orders', JSON.stringify(existingOrders));
+            localStorage.setItem('ecommerce_work_orders', JSON.stringify(existingOrders));
 
             // Capture transaction details
             setOrderSuccess({
@@ -278,7 +278,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     ? 'Payment Confirmed' 
                     : checkoutStep === 'shipping' 
                       ? 'Delivery Details' 
-                      : 'Your Selected Blends'
+                      : 'Your Selected Accessories'
                   }
                 </h2>
                 {!orderSuccess && (
@@ -298,25 +298,25 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
             {orderSuccess ? (
               /* Success Checkout Receipt Mode */
-              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-[#FAFDF6] overflow-y-auto">
+              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-surface overflow-y-auto">
                 <motion.div
                   initial={{ scale: 0.5, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ type: "spring", stiffness: 150, damping: 15 }}
-                  className="w-20 h-20 bg-[#48671c]/10 text-primary rounded-full flex items-center justify-center mb-6 shrink-0"
+                  className="w-20 h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6 shrink-0"
                 >
-                  <CheckCircle size={48} className="text-[#48671c]" />
+                  <CheckCircle size={48} className="text-primary" />
                 </motion.div>
                 
                 <h3 className="font-serif text-xl font-extrabold mb-2">Order Authenticated!</h3>
                 <p className="text-xs text-on-surface-variant max-w-xs mb-8">
-                  Payment verification completed. Your premium health dip soups are being freshly prepared and heading to your doorstep!
+                  Payment verification completed. Your premium designer workspace assets are being carefully prepared and dispatched to your address!
                 </p>
 
-                <div className="w-full bg-[#1e2f14]/5 border border-[#1e2f14]/10 rounded-2xl p-5 mb-8 text-left space-y-3 font-sans text-xs shrink-0">
+                <div className="w-full bg-primary-container/20 border border-outline-variant/30 rounded-2xl p-5 mb-8 text-left space-y-3 font-sans text-xs shrink-0">
                   <div className="flex justify-between border-b border-black/5 pb-2">
                     <span className="text-on-surface-variant uppercase font-bold tracking-wider text-[10px]">Order ID</span>
-                    <span className="font-mono text-[#1e2f14] font-medium selection:bg-yellow-100">{orderSuccess.orderId}</span>
+                    <span className="font-mono text-on-surface font-medium selection:bg-yellow-105">{orderSuccess.orderId}</span>
                   </div>
                   <div className="flex justify-between border-b border-black/5 pb-2">
                     <span className="text-on-surface-variant uppercase font-bold tracking-wider text-[10px]">Payment ID</span>
@@ -451,7 +451,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                   <div className="flex justify-between items-baseline mb-2">
                     <span className="font-sans text-xs font-bold uppercase tracking-widest text-on-surface-variant">Selected Amount</span>
-                    <span className="font-serif text-xl text-[#48671c] font-black">{formatCurrency(cartTotal)}</span>
+                    <span className="font-serif text-xl text-primary font-black">{formatCurrency(cartTotal)}</span>
                   </div>
 
                   <div className="grid grid-cols-1 gap-2">
@@ -485,13 +485,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <div className="flex-1 overflow-y-auto p-6 space-y-6 hide-scrollbar bg-white">
                   {cart.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-75">
-                      <div className="w-16 h-16 bg-[#FAFDF6] rounded-full flex items-center justify-center border border-outline-variant/20">
+                      <div className="w-16 h-16 bg-surface rounded-full flex items-center justify-center border border-outline-variant/20">
                         <ShoppingBag size={28} className="text-primary/70" />
                       </div>
                       <div>
                         <p className="font-serif text-sm font-bold">Your basket is currently empty</p>
                         <p className="font-sans text-xs text-on-surface-variant/80 mt-1 max-w-xs">
-                          Start exploring our collection of hand-plucked botanical lifestyle health soup dip bags.
+                          Start exploring our hand-finished collection of premium studio workspace assets.
                         </p>
                       </div>
                       <button 
@@ -548,10 +548,10 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 </div>
 
                 {cart.length > 0 && (
-                  <div className="p-6 border-t border-outline-variant/30 bg-[#FAFDF6] space-y-4">
+                  <div className="p-6 border-t border-outline-variant/30 bg-surface-container space-y-4">
                     <div className="flex justify-between items-baseline">
                       <span className="font-sans text-xs font-bold uppercase tracking-widest text-on-surface-variant">Subtotal</span>
-                      <span className="font-serif text-2xl text-[#48671c] font-black">{formatCurrency(cartTotal)}</span>
+                      <span className="font-serif text-2xl text-primary font-black">{formatCurrency(cartTotal)}</span>
                     </div>
                     
                     <p className="text-[10px] text-on-surface-variant italic leading-normal">
@@ -568,9 +568,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       </button>
                       <button 
                         onClick={onClose}
-                        className="w-full py-3 border border-primary/40 text-primary text-center rounded-full font-sans text-xs font-bold uppercase tracking-widest hover:bg-[#48671c]/10 transition-all cursor-pointer"
+                        className="w-full py-3 border border-primary/40 text-primary text-center rounded-full font-sans text-xs font-bold uppercase tracking-widest hover:bg-primary-container/20 transition-all cursor-pointer"
                       >
-                        Keep Browsing Portfolio
+                        Keep Exploring Collection
                       </button>
                     </div>
                   </div>

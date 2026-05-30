@@ -82,7 +82,7 @@ export default function Orders() {
       // 2. Fetch from standard localstorage
       let localOrders: Order[] = [];
       try {
-        const storedOrders = localStorage.getItem('nalam_brews_orders');
+        const storedOrders = localStorage.getItem('ecommerce_work_orders');
         if (storedOrders) {
           localOrders = JSON.parse(storedOrders);
         }
@@ -251,7 +251,7 @@ export default function Orders() {
         ) : matchedOrders.length === 0 ? (
           /* Empty / No Matches State */
           <div className="bg-white rounded-[2rem] border border-outline-variant/20 p-12 text-center space-y-6 shadow-xs">
-            <div className="w-20 h-20 bg-[#FAFDF6] rounded-full flex items-center justify-center mx-auto text-on-surface-variant border border-outline-variant/30">
+            <div className="w-20 h-20 bg-surface rounded-full flex items-center justify-center mx-auto text-on-surface-variant border border-outline-variant/30">
               <ShoppingBag size={32} />
             </div>
             <div className="space-y-2">
@@ -260,26 +260,27 @@ export default function Orders() {
                 We did not identify any premium order logs matching the consignee <strong className="text-primary">"{nameInput}"</strong> and number <strong className="text-primary">"{contactInput}"</strong> in this device's memory ledger.
               </p>
             </div>
+
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2">
               <button 
                 onClick={clearSession}
-                className="px-6 py-2.5 border border-primary text-primary hover:bg-[#48671c]/10 rounded-full font-serif text-xs font-bold transition-all cursor-pointer"
+                className="px-6 py-2.5 border border-primary text-primary hover:bg-primary-container/30 rounded-full font-serif text-xs font-bold transition-all cursor-pointer"
               >
                 Change Input Parameters
               </button>
               <Link 
                 to="/products"
-                className="px-6 py-2.5 bg-primary hover:bg-[#344d13] text-white rounded-full font-serif text-xs font-bold transition-all cursor-pointer"
+                className="px-6 py-2.5 bg-primary hover:brightness-110 text-white rounded-full font-serif text-xs font-bold transition-all cursor-pointer"
               >
-                Browse Our Botanical Soup Catalog
+                Browse Our Design Essentials
               </Link>
             </div>
           </div>
         ) : (
           /* Orders List output matching lookup */
           <div className="space-y-8">
-            <div className="bg-[#48671c]/5 px-6 py-3.5 rounded-2xl flex items-center justify-between text-xs border border-[#48671c]/15 text-[#48671c] font-medium font-sans">
-              <span>Showing <strong>{matchedOrders.length}</strong> premium health blend {matchedOrders.length === 1 ? 'order' : 'orders'} for <strong>{nameInput}</strong></span>
+            <div className="bg-primary-container/20 px-6 py-3.5 rounded-2xl flex items-center justify-between text-xs border border-primary-container/40 text-primary font-medium font-sans">
+              <span>Showing <strong>{matchedOrders.length}</strong> design product {matchedOrders.length === 1 ? 'order' : 'orders'} for <strong>{nameInput}</strong></span>
               <button onClick={clearSession} className="underline text-[11px] font-bold">Clear Lookup</button>
             </div>
 

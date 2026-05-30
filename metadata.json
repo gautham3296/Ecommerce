@@ -1,6 +1,6 @@
 {
-  "name": "E-commerce node js",
-  "description": "Premium e-commerce platform for handcrafted whole-leaf herbal health soups in the shape of dips.",
+  "name": "Ecommerce",
+  "description": "Premium e-commerce platform for minimalist lifestyle and workspace design essentials.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

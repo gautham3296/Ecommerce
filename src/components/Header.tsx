@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Search, Leaf, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, Compass, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -23,15 +23,15 @@ export default function Header() {
   return (
     <div className="z-50 w-full sticky top-0 flex flex-col">
       {/* Promo Ticker Bar */}
-      <div className="bg-[#1e2f14] text-white py-1.5 md:py-2 px-3 md:px-4 text-center text-[10px] md:text-xs font-sans tracking-wide overflow-hidden whitespace-nowrap flex justify-center items-center gap-3 md:gap-6">
+      <div className="bg-primary text-on-primary py-1.5 md:py-2 px-3 md:px-4 text-center text-[10px] md:text-xs font-sans tracking-wide overflow-hidden whitespace-nowrap flex justify-center items-center gap-3 md:gap-6">
         <span className="inline-flex items-center gap-1 font-semibold flex-shrink-0">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c2e88d] animate-pulse" />
-          🎉 20 Lakh + Happy Customers
+          <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" />
+          ✨ Curated Work & Lifestyle Goods
         </span>
         <span className="hidden sm:inline text-white/40">•</span>
-        <span className="hidden sm:inline font-sans text-white/95">FREE Gift On Orders Above ₹499</span>
+        <span className="hidden sm:inline font-sans text-white/95">FREE Delivery On Orders Above ₹1,999</span>
         <span className="text-white/40">•</span>
-        <span className="font-semibold text-primary-container">100% Caffeine-Free Dip Soups</span>
+        <span className="font-semibold text-primary-container">Designed for Focus & Function</span>
       </div>
 
       {/* Main Navbar */}
@@ -54,18 +54,18 @@ export default function Header() {
               {isMobileMenuOpen ? <X className="w-5 h-5 text-primary" /> : <Menu className="w-5 h-5 text-primary" />}
             </button>
             <Link to="/" className="flex items-center gap-1 md:gap-2 group">
-              <Leaf className="text-primary w-5 h-5 md:w-7 md:h-7 group-hover:rotate-12 transition-transform" />
-              <span className="font-serif text-base sm:text-lg md:text-2xl text-primary tracking-tight font-bold">Nalam Brews</span>
+              <Compass className="text-primary w-5 h-5 md:w-7 md:h-7 group-hover:rotate-12 transition-transform" />
+              <span className="font-serif text-base sm:text-lg md:text-2xl text-primary tracking-tight font-bold">Ecommerce</span>
             </Link>
           </div>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex gap-8 items-center">
             <Link to="/" className="font-sans text-sm font-semibold text-primary hover:text-primary/80 transition-colors">Home</Link>
-            <Link to="/products" className="font-sans text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">Our Blends</Link>
+            <Link to="/products" className="font-sans text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">Collection</Link>
             <a href="#categories" className="font-sans text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">Categories</a>
             <a href="#story" className="font-sans text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">Our Story</a>
-            <Link to="/orders" className="font-sans text-xs font-bold text-white bg-[#48671c] hover:bg-[#344d13] px-3 py-1.5 rounded-full uppercase tracking-wider transition-colors">
+            <Link to="/orders" className="font-sans text-xs font-bold text-on-primary bg-primary hover:brightness-110 px-3.5 py-2 rounded-full uppercase tracking-wider transition-colors">
               My Orders
             </Link>
           </nav>
@@ -88,7 +88,7 @@ export default function Header() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="absolute top-1 right-1 w-4 h-4 bg-[#48671c] text-white text-[9px] font-bold rounded-full flex items-center justify-center border border-surface shadow-xs"
+                    className="absolute top-1 right-1 w-4 h-4 bg-primary text-on-primary text-[9px] font-bold rounded-full flex items-center justify-center border border-surface shadow-xs"
                   >
                     {itemCount}
                   </motion.span>
@@ -131,7 +131,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="font-sans text-sm font-semibold text-on-surface-variant hover:text-primary py-1.5 border-b border-outline-variant/15"
               >
-                All Botanical Blends
+                All Accessories
               </Link>
               <a 
                 href="#categories" 
@@ -150,7 +150,7 @@ export default function Header() {
               <Link 
                 to="/orders" 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="font-serif text-sm font-bold text-[#48671c] py-1.5"
+                className="font-serif text-sm font-bold text-primary py-1.5"
               >
                 My Orders
               </Link>

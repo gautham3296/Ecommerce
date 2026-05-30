@@ -27,7 +27,7 @@ export interface Product {
   secondaryImage?: string;
   tertiaryImage?: string;
   tags: string[];
-  category: "Digestion" | "Immunity" | "Skin" | "Weight" | "Detox";
+  category: "Workspace" | "Essentials" | "Carry" | "Sleeves" | "Lifestyle";
 }
 
 export interface CartItem extends Product {

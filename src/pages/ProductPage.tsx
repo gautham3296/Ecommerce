@@ -20,8 +20,8 @@ export default function ProductPage() {
   if (!product) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-5">
-        <h1 className="font-serif text-4xl mb-4">Botanical Not Found</h1>
-        <p className="mb-8 opacity-60">This particular herb seems to be missing from our garden.</p>
+        <h1 className="font-serif text-4xl mb-4">Product Not Found</h1>
+        <p className="mb-8 opacity-60">This particular product seems to be missing from our collection.</p>
         <Link to="/" className="text-primary border-b-2 border-primary pb-1 font-bold uppercase tracking-widest text-xs">Return Home</Link>
       </div>
     );
@@ -59,7 +59,7 @@ export default function ProductPage() {
               </div>
             )}
             <div className="bg-surface-container-high rounded-2xl p-6 flex flex-col justify-center items-center text-center">
-              <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-primary mb-2">Flavor Profile</span>
+              <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-primary mb-2">Product Aesthetic</span>
               <p className="font-serif italic text-lg leading-tight">"{product.flavorProfile}"</p>
             </div>
           </div>
@@ -124,8 +124,8 @@ export default function ProductPage() {
       <section className="max-w-7xl mx-auto px-5 md:px-16 py-24">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="max-w-xl">
-            <h2 className="font-serif text-3xl md:text-5xl text-on-surface mb-4">Holistic <span className="italic">Virtues</span></h2>
-            <p className="text-on-surface-variant">A classic of whole-leaf botanical traditions, this blend is much more than a drink; it is a complex, soothing dip soup.</p>
+            <h2 className="font-serif text-3xl md:text-5xl text-on-surface mb-4">Product <span className="italic">Features</span></h2>
+            <p className="text-on-surface-variant">Designed with clean lines and premium materials, every detail is engineered for durability and daily functional utility.</p>
           </div>
           <div className="h-px flex-1 bg-outline-variant/30 mb-4 hidden md:block" />
         </div>
@@ -157,7 +157,7 @@ export default function ProductPage() {
           >
             <div className="flex items-center gap-2 text-error mb-4">
               <AlertTriangle size={20} />
-              <h4 className="font-sans font-bold uppercase tracking-widest text-[10px]">Precautionary Note</h4>
+              <h4 className="font-sans font-bold uppercase tracking-widest text-[10px]">Care & Maintenance Note</h4>
             </div>
             <ul className="space-y-2">
               {product.contraindications.map((note, i) => (
@@ -176,9 +176,9 @@ export default function ProductPage() {
         <div className="max-w-7xl mx-auto px-5 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1 space-y-12">
             <div>
-              <h2 className="font-serif text-4xl md:text-5xl italic mb-6">The Brewing Ritual</h2>
+              <h2 className="font-serif text-4xl md:text-5xl italic mb-6">The Setup Guide</h2>
               <p className="font-serif italic text-lg text-primary border-l-2 border-primary pl-6">
-                "Patience is the first ingredient of any healing potion."
+                "Good design is thorough down to the last detail."
               </p>
             </div>
             
@@ -209,7 +209,7 @@ export default function ProductPage() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-8 left-8 p-8 bg-white/90 backdrop-blur-md rounded-3xl shadow-xl max-w-[240px] hidden md:block">
-                <p className="font-serif italic text-primary leading-tight text-xl">Savor the transformation of the botanical essence.</p>
+                <p className="font-serif italic text-primary leading-tight text-xl">Experience the perfect balance of form and daily function.</p>
               </div>
             </motion.div>
           </div>

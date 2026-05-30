@@ -7,50 +7,47 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useProducts } from '../context/ProductsContext';
 import ProductCard from '../components/ProductCard';
-import { Shield, Sparkles, Activity, Flame, Heart, Leaf } from 'lucide-react';
+import { Shield, Sparkles, Layers, Archive, Laptop, Grid } from 'lucide-react';
 
 export default function Catalog() {
   const { products, loading } = useProducts();
-  const [activeCategory, setActiveCategory] = useState<'All' | 'Weight' | 'Digestion' | 'Skin' | 'Immunity' | 'Detox'>('All');
+  const [activeCategory, setActiveCategory] = useState<'All' | 'Workspace' | 'Sleeves' | 'Lifestyle' | 'Carry' | 'Essentials'>('All');
 
   const categories = [
-    { name: 'All', icon: Leaf },
-    { name: 'Weight', icon: Flame },
-    { name: 'Digestion', icon: Activity },
-    { name: 'Skin', icon: Sparkles },
-    { name: 'Immunity', icon: Shield },
-    { name: 'Detox', icon: Heart },
+    { name: 'All', icon: Grid },
+    { name: 'Workspace', icon: Laptop },
+    { name: 'Sleeves', icon: Layers },
+    { name: 'Lifestyle', icon: Sparkles },
+    { name: 'Carry', icon: Archive },
+    { name: 'Essentials', icon: Shield },
   ] as const;
 
-  // Filter products by category, resolving slight mapped tags
+  // Filter products by category
   const filteredProducts = products.filter((product) => {
     if (activeCategory === 'All') return true;
-    if (activeCategory === 'Weight') return product.category === 'Weight' || product.id === 'guava-leaves';
-    if (activeCategory === 'Skin') return product.category === 'Skin' || product.id === 'curry-leaves';
-    if (activeCategory === 'Detox') return product.category === 'Detox' || product.id === 'black-nightshade';
     return product.category === activeCategory;
   });
 
   return (
-    <div className="bg-[#FAFDF6] text-[#1e2f14] min-h-screen py-10 md:py-16">
+    <div className="bg-surface text-on-surface min-h-screen py-10 md:py-16">
       <div className="max-w-7xl mx-auto px-4 md:px-16 space-y-12">
         
         {/* Dynamic Catalog Header */}
         <div className="text-center space-y-4 max-w-2xl mx-auto">
-          <span className="text-xs uppercase tracking-[0.3em] font-extrabold text-[#48671c] bg-[#f4f9eb] px-4 py-1.5 rounded-full w-fit mx-auto block">
-            🌿 Complete Botanical Portfolio
+          <span className="text-xs uppercase tracking-[0.3em] font-extrabold text-primary bg-primary-container/60 px-4 py-1.5 rounded-full w-fit mx-auto block">
+            ✨ Curated Design Essentials
           </span>
-          <h1 className="font-serif text-4xl md:text-5xl font-extrabold">
-            Our Complete <span className="italic text-[#48671c]">Botanical Catalog</span>
+          <h1 className="font-serif text-4xl md:text-5xl font-extrabold text-on-surface">
+            Our Complete <span className="italic text-primary">Design Collection</span>
           </h1>
           <p className="text-on-surface-variant text-sm md:text-base leading-relaxed">
-            Nurtured by Indian farm families. 100% natural, sun-dried whole-leaf infusions designed to balance your daily energies.
+            Carefully curated from premium, sustainable materials. Elevate your everyday workspace and daily lifestyle rituals.
           </p>
         </div>
 
         {/* Categories Tab Selector */}
         <div className="flex justify-center overflow-x-auto scrollbar-none pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div className="flex bg-[#f4f9eb] p-1.5 rounded-2xl gap-1 border border-outline-variant/20 flex-nowrap shrink-0">
+          <div className="flex bg-surface-container p-1.5 rounded-2xl gap-1 border border-outline-variant/20 flex-nowrap shrink-0">
             {categories.map((cat) => {
               const Icon = cat.icon;
               const isActive = activeCategory === cat.name;
@@ -60,8 +57,8 @@ export default function Catalog() {
                   onClick={() => setActiveCategory(cat.name)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? 'bg-[#48671c] text-white shadow-md'
-                      : 'text-[#48671c]/80 hover:bg-white/50 hover:text-[#48671c]'
+                      ? 'bg-primary text-on-primary shadow-md'
+                      : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
                   }`}
                 >
                   <Icon size={14} className={isActive ? 'animate-pulse' : ''} />
@@ -96,7 +93,7 @@ export default function Catalog() {
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-20 space-y-4">
-              <p className="text-on-surface-variant font-medium">No botanical blends found in this category.</p>
+              <p className="text-on-surface-variant font-medium">No goods found in this category.</p>
             </div>
           )}
         </div>

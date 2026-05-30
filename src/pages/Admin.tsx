@@ -96,7 +96,7 @@ export default function Admin() {
   const [formScientificName, setFormScientificName] = React.useState('');
   const [formPrice, setFormPrice] = React.useState(0);
   const [formOriginalPrice, setFormOriginalPrice] = React.useState<number | undefined | "">("");
-  const [formCategory, setFormCategory] = React.useState<"Digestion" | "Immunity" | "Skin" | "Weight" | "Detox">("Digestion");
+  const [formCategory, setFormCategory] = React.useState<"Workspace" | "Essentials" | "Carry" | "Sleeves" | "Lifestyle">("Workspace");
   const [formShortDescription, setFormShortDescription] = React.useState('');
   const [formDescription, setFormDescription] = React.useState('');
   const [formFlavorProfile, setFormFlavorProfile] = React.useState('');
@@ -130,7 +130,7 @@ export default function Admin() {
     setFormScientificName('');
     setFormPrice(2000); // default rupees (e.g., 20.00 standard format internally)
     setFormOriginalPrice('');
-    setFormCategory('Digestion');
+    setFormCategory('Workspace');
     setFormShortDescription('');
     setFormDescription('');
     setFormFlavorProfile('Pungent, herbaceous, with a refreshingly sweet undertone.');
@@ -167,18 +167,18 @@ export default function Admin() {
       heroImage: formHeroImage.trim(),
       secondaryImage: formSecondaryImage.trim() || undefined,
       benefits: [
-        { title: "Metabolism Booster", description: "Activates organic enzymes to convert fatty cells into active body energy.", icon: "bolt" },
-        { title: "Digestive Shield", description: "Creates a gentle gastrointestinal coating to reduce excess acidity.", icon: "spa" },
-        { title: "Systemic Cleansing", description: "Rich, dense antioxidant load to naturally flush blood toxins.", icon: "shield" }
+        { title: "Ergonomic Alignment", description: "Optimizes wrist angles and visual symmetry for extended focus hours.", icon: "bolt" },
+        { title: "Eco-Agrade Materials", description: "Formulated using traceable timber timberlands, recycled wools, and Genuine residuals.", icon: "spa" },
+        { title: "Surface Protection", description: "Finished with a non-abrasive, spill-repelling, oil-tested sealing coat.", icon: "shield" }
       ],
       contraindications: [
-        "Pregnant mothers",
-        "Patients on blood sugar medicine"
+        "Do not submerge in high temperature boiling water",
+        "Keep away from direct sharp tools and open fire centers"
       ],
       brewingRitual: [
-        { step: "01", title: "Pour", description: "Place one health dip bag in 8oz near-boiling water (approx 190°F)." },
-        { step: "02", title: "Infuse", description: "Cover and let steep for 5 to 7 golden minutes to unlock essential botanical elements." },
-        { step: "03", title: "Savor", description: "Remove dip bag. Breathe and sip slowly while warm." }
+        { step: "01", title: "Unbox", description: "Slowly break open the protective local tissue envelope." },
+        { step: "02", title: "Layout", description: "Position safely on a leveled, dry, stable hardwood tabletop." },
+        { step: "03", title: "Savor", description: "Observe the custom natural desk patina develop over weeks of focus." }
       ]
     };
 
@@ -252,7 +252,7 @@ export default function Admin() {
 
       // 2. Fetch from standard localstorage
       let localOrders: Order[] = [];
-      const storedOrders = localStorage.getItem('nalam_brews_orders');
+      const storedOrders = localStorage.getItem('ecommerce_work_orders');
       if (storedOrders) {
         try {
           localOrders = JSON.parse(storedOrders);
@@ -290,7 +290,7 @@ export default function Admin() {
       setAllOrders(updatedOrders);
 
       // 2. Persist to standard offline Sandbox LocalStorage fallback configuration
-      const localOrdersStr = localStorage.getItem('nalam_brews_orders');
+      const localOrdersStr = localStorage.getItem('ecommerce_work_orders');
       let localOrders: Order[] = [];
       if (localOrdersStr) {
         try {
@@ -310,7 +310,7 @@ export default function Admin() {
           updatedLocal.push({ ...memoryOrder, status, trackingId });
         }
       }
-      localStorage.setItem('nalam_brews_orders', JSON.stringify(updatedLocal));
+      localStorage.setItem('ecommerce_work_orders', JSON.stringify(updatedLocal));
 
       // 3. Submit remote update REST query (Hostinger MySQL)
       const res = await fetch("/api/orders/update-status", {
@@ -342,7 +342,7 @@ export default function Admin() {
 
   const clearDatabase = async () => {
     if (window.confirm("⚠️ WARNING: Are you sure you want to completely clear the local and remote transaction database ledger? This action is irreversible.")) {
-      localStorage.removeItem('nalam_brews_orders');
+      localStorage.removeItem('ecommerce_work_orders');
       
       try {
         await fetch("/api/orders/wipe", { method: "POST" });
@@ -361,23 +361,23 @@ export default function Admin() {
         id: "order_mock101_razorpay",
         paymentId: "pay_mock101_validated",
         date: new Date(Date.now() - 3600000 * 24).toISOString(), // 1 day ago
-        amount: 875,
+        amount: 4398,
         items: [
           {
             id: "1",
-            name: "Vadha Narayanan Soup",
-            scientificName: "Delonix elata",
-            price: 249,
-            quantity: 2,
-            heroImage: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&q=80&w=600"
+            name: "Saddle Leather Desk Mat",
+            scientificName: "Vegetable-tanned residual cow hide",
+            price: 2499,
+            quantity: 1,
+            heroImage: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=600"
           },
           {
             id: "3",
-            name: "Murungai (Moringa) Soup",
-            scientificName: "Moringa oleifera",
-            price: 189,
-            quantity: 2,
-            heroImage: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&q=80&w=600"
+            name: "Acoustic LED Timer Block",
+            scientificName: "Hand-finished walnut casing",
+            price: 1899,
+            quantity: 1,
+            heroImage: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&q=80&w=600"
           }
         ],
         shipping: {
@@ -392,15 +392,15 @@ export default function Admin() {
         id: "order_mock102_razorpay",
         paymentId: "pay_mock102_validated",
         date: new Date(Date.now() - 3600000 * 2).toISOString(), // 2 hours ago
-        amount: 395,
+        amount: 2299,
         items: [
           {
             id: "2",
-            name: "Mudakathan (Balloon Vine) Soup",
-            scientificName: "Cardiospermum halicacabum",
-            price: 199,
+            name: "Tailored Wool Canvas Pocket",
+            scientificName: "Merino wool and waxed pocket lining",
+            price: 2299,
             quantity: 1,
-            heroImage: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&q=80&w=600"
+            heroImage: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600"
           }
         ],
         shipping: {
@@ -413,7 +413,7 @@ export default function Admin() {
       }
     ];
 
-    localStorage.setItem('nalam_brews_orders', JSON.stringify(mockOrders));
+    localStorage.setItem('ecommerce_work_orders', JSON.stringify(mockOrders));
     loadLedger();
   };
 
@@ -445,26 +445,26 @@ export default function Admin() {
   });
 
   return (
-    <div className="bg-[#FAFDF6] min-h-screen py-10 md:py-16">
+    <div className="bg-surface min-h-screen py-10 md:py-16">
       <div className="max-w-6xl mx-auto px-5">
 
         {/* Master Cover Section */}
-        <div className="border-b border-[#48671c]/25 pb-8 mb-10 text-center md:text-left flex flex-col md:flex-row md:justify-between md:items-end gap-6">
+        <div className="border-b border-outline-variant/30 pb-8 mb-10 text-center md:text-left flex flex-col md:flex-row md:justify-between md:items-end gap-6">
           <div className="space-y-1">
-            <span className="font-sans text-[10px] uppercase tracking-[0.3em] font-extrabold text-[#48671c] bg-[#48671c]/10 px-4 py-1.5 rounded-full w-fit inline-block mb-2">
+            <span className="font-sans text-[10px] uppercase tracking-[0.3em] font-extrabold text-primary bg-primary/10 px-4 py-1.5 rounded-full w-fit inline-block mb-2">
               ⚙️ Administrator Workspace
             </span>
             <h1 className="font-serif text-3xl md:text-5xl font-black text-primary">
-              Nalam <span className="italic font-normal">Brews Central</span>
+              Studio <span className="italic font-normal">Order Matrix</span>
             </h1>
             <p className="text-on-surface-variant text-xs max-w-xl">
-              Inspect order ledgers, process botanical dispatch logs, clear debug states, and view macro sales analytics of premium health dip soups.
+              Inspect transactional order ledgers, fulfillment states, inventory structures, and view real-time performance analytics of design products.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 justify-center md:justify-start shrink-0">
             <button
               onClick={handleInjectMockData}
-              className="px-4 py-2 bg-white border border-outline-variant text-[#48671c] font-sans text-xs font-bold rounded-full hover:bg-primary-container/20 transition-all cursor-pointer inline-flex items-center gap-1.5"
+              className="px-4 py-2 bg-white border border-outline-variant text-primary font-sans text-xs font-bold rounded-full hover:bg-primary-container/20 transition-all cursor-pointer inline-flex items-center gap-1.5"
             >
               <RotateCcw size={12} /> Inject Sample Data
             </button>
