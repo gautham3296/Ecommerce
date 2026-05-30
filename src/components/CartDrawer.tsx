@@ -128,7 +128,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'Ecommerce',
+        name: 'pcessentials.store',
         description: 'Premium Minimalist Workspace Essentials',
         image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=200',
         order_id: orderData.id,

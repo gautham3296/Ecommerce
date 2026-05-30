@@ -120,6 +120,14 @@ export default function Admin() {
     setFormHeroImage(p.heroImage || '');
     setFormSecondaryImage(p.secondaryImage || '');
     setIsProductFormOpen(true);
+
+    // Automatically scroll to edit/add view
+    setTimeout(() => {
+      const formElement = document.getElementById("studio-product-form");
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   };
 
   // Helper to clear product form for new addition
@@ -133,11 +141,19 @@ export default function Admin() {
     setFormCategory('Workspace');
     setFormShortDescription('');
     setFormDescription('');
-    setFormFlavorProfile('Pungent, herbaceous, with a refreshingly sweet undertone.');
-    setFormTags('New Blend, Farm Sourced');
-    setFormHeroImage('https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&q=80&w=600');
+    setFormFlavorProfile('Anodized Aluminum & Custom PBT Keycaps');
+    setFormTags('Workspace, Premium Desk, New Arrival');
+    setFormHeroImage('https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&q=80&w=1200');
     setFormSecondaryImage('');
     setIsProductFormOpen(true);
+
+    // Automatically scroll to edit/add view
+    setTimeout(() => {
+      const formElement = document.getElementById("studio-product-form");
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   };
 
   // Handle saving product from form
@@ -482,7 +498,7 @@ export default function Admin() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                dbStatus === 'connected' ? 'bg-[#48671c]/10 text-[#48671c]' :
+                dbStatus === 'connected' ? 'bg-green-50 text-green-700' :
                 dbStatus === 'error' ? 'bg-red-50 text-red-600' :
                 'bg-orange-50 text-orange-600'
               }`}>
@@ -493,7 +509,7 @@ export default function Admin() {
                   Hostinger MySQL Database Connectivity
                 </h3>
                 <p className="text-on-surface-variant text-xs">
-                  Real-time synchronization state for whole-herb customer order records
+                  Real-time synchronization state for premium customer order records
                 </p>
               </div>
             </div>
@@ -503,7 +519,7 @@ export default function Admin() {
               disabled={isRetryingDb}
               className={`px-4 py-2 text-xs font-bold rounded-full transition-all flex items-center gap-2 cursor-pointer ${
                 isRetryingDb ? 'bg-gray-100 text-gray-400 cursor-not-allowed' :
-                dbStatus === 'connected' ? 'bg-[#48671c]/10 text-[#48671c] hover:bg-[#48671c]/20' :
+                dbStatus === 'connected' ? 'bg-green-50 text-green-700 hover:bg-green-100' :
                 'bg-primary text-white hover:bg-primary-hover shadow-sm'
               }`}
             >
@@ -542,7 +558,7 @@ export default function Admin() {
               </div>
 
               <div className="bg-gray-50 border border-outline-variant/40 rounded-xl p-4 text-xs space-y-3">
-                <h4 className="font-bold text-[#48671c] font-sans">
+                <h4 className="font-bold text-secondary font-sans">
                   🛠️ How to Resolve Hostinger Port/Timeout & Connection issues:
                 </h4>
                 <ul className="list-decimal pl-4 space-y-2 text-on-surface-variant text-[11px] leading-relaxed">
@@ -601,7 +617,7 @@ export default function Admin() {
             onClick={() => setActiveSection('orders')}
             className={`flex-1 pb-3 text-xs font-bold uppercase tracking-widest text-center border-b-2 transition-all cursor-pointer ${
               activeSection === 'orders'
-                ? 'border-[#48671c] text-primary'
+                ? 'border-primary text-primary'
                 : 'border-transparent text-gray-400 hover:text-gray-650'
             }`}
           >
@@ -611,11 +627,11 @@ export default function Admin() {
             onClick={() => setActiveSection('catalog')}
             className={`flex-1 pb-3 text-xs font-bold uppercase tracking-widest text-center border-b-2 transition-all cursor-pointer ${
               activeSection === 'catalog'
-                ? 'border-[#48671c] text-primary'
+                ? 'border-primary text-primary'
                 : 'border-transparent text-gray-400 hover:text-gray-650'
             }`}
           >
-            🌿 Live Catalog
+            📐 Showcase Catalog
           </button>
         </div>
 
@@ -628,12 +644,12 @@ export default function Admin() {
           <div className="bg-white rounded-2xl border border-outline-variant/35 p-6 flex items-center justify-between shadow-xs">
             <div className="space-y-1">
               <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider block">Total Store Sales</span>
-              <h2 className="font-serif text-2xl font-black text-[#48671c]">{formatCurrency(totalRevenue)}</h2>
+              <h2 className="font-serif text-2xl font-black text-secondary">{formatCurrency(totalRevenue)}</h2>
               <span className="text-[10px] text-primary flex items-center gap-1">
                 <TrendingUp size={11} /> 100% verified gateway
               </span>
             </div>
-            <div className="w-11 h-11 bg-[#48671c]/10 text-primary rounded-xl flex items-center justify-center">
+            <div className="w-11 h-11 bg-secondary-container text-secondary rounded-xl flex items-center justify-center">
               <BarChart3 size={20} />
             </div>
           </div>
@@ -642,10 +658,10 @@ export default function Admin() {
           <div className="bg-white rounded-2xl border border-outline-variant/35 p-6 flex items-center justify-between shadow-xs">
             <div className="space-y-1">
               <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider block">Completed Orders</span>
-              <h2 className="font-serif text-2xl font-black text-[#1e2f14]">{allOrders.length} Transaction(s)</h2>
+              <h2 className="font-serif text-2xl font-black text-primary">{allOrders.length} Transaction(s)</h2>
               <span className="text-[10px] text-on-surface-variant italic">Sandbox + Local Ledger</span>
             </div>
-            <div className="w-11 h-11 bg-[#1e2f14]/10 text-primary rounded-xl flex items-center justify-center">
+            <div className="w-11 h-11 bg-primary-container text-primary rounded-xl flex items-center justify-center">
               <ShoppingBag size={20} />
             </div>
           </div>
@@ -653,9 +669,9 @@ export default function Admin() {
           {/* Card 3 */}
           <div className="bg-white rounded-2xl border border-outline-variant/35 p-6 flex items-center justify-between shadow-xs">
             <div className="space-y-1">
-              <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider block">Botanical Volume Sold</span>
-              <h2 className="font-serif text-2xl font-black text-[#1e2f14]">{totalVolume} Packet(s)</h2>
-              <span className="text-[10px] text-[#48671c] font-medium">Whole Herb Dip Bags</span>
+              <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider block">Items Dispatched</span>
+              <h2 className="font-serif text-2xl font-black text-primary">{totalVolume} Unit(s)</h2>
+              <span className="text-[10px] text-secondary font-medium">Curated design essentials</span>
             </div>
             <div className="w-11 h-11 bg-primary-container/20 text-primary rounded-xl flex items-center justify-center">
               <PackageCheck size={20} />
@@ -666,7 +682,7 @@ export default function Admin() {
           <div className="bg-white rounded-2xl border border-outline-variant/35 p-6 flex items-center justify-between shadow-xs">
             <div className="space-y-1">
               <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider block">Average Ticket (AOV)</span>
-              <h2 className="font-serif text-2xl font-black text-[#48671c]">{formatCurrency(averageValue)}</h2>
+              <h2 className="font-serif text-2xl font-black text-secondary">{formatCurrency(averageValue)}</h2>
               <span className="text-[10px] text-on-surface-variant font-sans">Per Customer Session</span>
             </div>
             <div className="w-11 h-11 bg-surface-container text-on-surface-variant rounded-xl flex items-center justify-center">
@@ -675,17 +691,15 @@ export default function Admin() {
           </div>
 
         </div>
-
-        {/* Filter bar */}
-        <div className="bg-white rounded-2xl border border-outline-variant/35 p-4 mb-4 flex flex-col md:flex-row items-center gap-4 shadow-3xs">
+         <div className="bg-white rounded-2xl border border-outline-variant/35 p-4 mb-4 flex flex-col md:flex-row items-center gap-4 shadow-3xs">
           <div className="relative w-full md:flex-1">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/70" size={16} />
             <input 
               type="text"
-              placeholder="Search master ledger by Customer Name, Phone, Razorpay ID, State, or Botanical names..."
+              placeholder="Search master ledger by Customer Name, Phone, Razorpay ID, State, or Product names..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl pl-10 pr-4 py-2.5 font-sans text-xs focus:outline-none focus:border-[#48671c]"
+              className="w-full bg-white border border-outline-variant/35 rounded-xl pl-10 pr-4 py-2.5 font-sans text-xs focus:outline-none focus:border-primary"
             />
           </div>
           {searchQuery && (
@@ -713,8 +727,8 @@ export default function Admin() {
                 onClick={() => setStatusFilter(st)}
                 className={`px-4 py-2 rounded-full font-bold transition-all cursor-pointer border ${
                   statusFilter === st
-                    ? 'bg-[#48671c] text-white border-[#48671c] shadow-xs'
-                    : 'bg-white text-on-surface-variant border-outline-variant/30 hover:bg-[#48671c]/5 hover:text-[#48671c]'
+                    ? 'bg-primary text-white border-primary shadow-xs'
+                    : 'bg-white text-on-surface-variant border-outline-variant/30 hover:bg-primary/5 hover:text-primary'
                 }`}
               >
                 {st === 'all' ? 'All Orders' : st === 'Processing' ? '⏳ Processing' : st === 'Packed' ? '📦 Packed' : '🚚 Dispatched'} ({count})
@@ -726,7 +740,7 @@ export default function Admin() {
         {/* Main Database Table Output */}
         {filteredOrders.length === 0 ? (
           <div className="bg-white rounded-[2rem] border border-outline-variant/20 p-16 text-center space-y-4">
-            <div className="w-16 h-16 bg-[#FAFDF6] rounded-full flex items-center justify-center mx-auto text-on-surface-variant/60 border border-outline-variant/20">
+            <div className="w-16 h-16 bg-surface rounded-full flex items-center justify-center mx-auto text-on-surface-variant/60 border border-outline-variant/20">
               <Search size={24} />
             </div>
             <div className="space-y-1">
@@ -746,22 +760,22 @@ export default function Admin() {
             {filteredOrders.map((order, idx) => (
               <div 
                 key={order.id || idx} 
-                className="bg-white rounded-3xl border border-outline-variant/35 overflow-hidden shadow-xs hover:border-[#48671c]/30 transition-all border-l-4 border-l-[#48671c]"
+                className="bg-white rounded-3xl border border-outline-variant/35 overflow-hidden shadow-xs hover:border-primary/40 transition-all border-l-4 border-l-primary"
               >
                 {/* Header Information Bar */}
-                <div className="bg-[#FAFDF6] px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/20 text-xs">
+                <div className="bg-primary-container/15 px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/20 text-xs">
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-1.5">
                     <div>
                       <span className="text-[9px] uppercase tracking-wider font-extrabold text-on-surface-variant/70 block mb-0.5">Purchaser</span>
-                      <span className="font-sans font-bold text-[#1e2f14] flex items-center gap-1">
-                        <User size={12} className="text-[#48671c]" />
+                      <span className="font-sans font-bold text-primary flex items-center gap-1">
+                        <User size={12} className="text-secondary" />
                         {order.shipping?.name || 'Incomplete Profile'}
                       </span>
                     </div>
                     <div>
                       <span className="text-[9px] uppercase tracking-wider font-extrabold text-on-surface-variant/70 block mb-0.5">Contact</span>
                       <span className="font-mono text-on-surface-variant flex items-center gap-1 font-semibold selection:bg-yellow-100">
-                        <Phone size={12} className="text-[#48671c]/7s" />
+                        <Phone size={12} className="text-secondary" />
                         {order.shipping?.contact || 'N/A'}
                       </span>
                     </div>
@@ -778,7 +792,7 @@ export default function Admin() {
                     </div>
                   </div>
                   <div className="text-right sm:w-auto w-full">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#48671c]/10 text-[#48671c] rounded-full uppercase font-bold tracking-widest text-[9px]">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary-container text-secondary rounded-full uppercase font-bold tracking-widest text-[9px]">
                       <ShieldCheck size={11} /> Secured Razorpay order
                     </span>
                   </div>
@@ -790,8 +804,8 @@ export default function Admin() {
                   {/* Cart package specifics */}
                   <div className="md:col-span-2 p-6 md:p-8 space-y-4 bg-white">
                     <div className="flex justify-between items-center border-b border-outline-variant/15 pb-2 mb-4">
-                      <h4 className="font-serif text-xs font-bold text-[#1e2f14]">Cart Packages Payload ({order.items.reduce((acc, current) => acc + current.quantity, 0)} Pkts)</h4>
-                      <span className="font-serif font-black text-[#48671c]">{formatCurrency(order.amount)} total</span>
+                      <h4 className="font-serif text-xs font-bold text-primary">Cart Items Payload ({order.items.reduce((acc, current) => acc + current.quantity, 0)} Units)</h4>
+                      <span className="font-serif font-black text-secondary">{formatCurrency(order.amount)} total</span>
                     </div>
                     
                     <div className="space-y-3.5">
@@ -806,7 +820,7 @@ export default function Admin() {
                           </div>
                           <div className="text-right shrink-0">
                             <span className="font-medium text-on-surface-variant">{formatCurrency(item.price)} × {item.quantity}</span>
-                            <span className="font-sans font-bold text-[#1e2f14] block">{formatCurrency(item.price * item.quantity)}</span>
+                            <span className="font-sans font-bold text-primary block">{formatCurrency(item.price * item.quantity)}</span>
                           </div>
                         </div>
                       ))}
@@ -814,25 +828,25 @@ export default function Admin() {
                   </div>
 
                   {/* Shipment coordinates */}
-                  <div className="p-6 md:p-8 bg-[#FAFDF6]/20 space-y-4">
-                    <h4 className="font-serif text-xs font-bold border-b border-outline-variant/15 pb-2 mb-4 text-[#1e2f14] flex items-center gap-1.5">
-                      <MapPin size={13} className="text-[#48671c]" /> Shipment Coordinates
+                  <div className="p-6 md:p-8 bg-surface-container-low/30 space-y-4">
+                    <h4 className="font-serif text-xs font-bold border-b border-outline-variant/15 pb-2 mb-4 text-primary flex items-center gap-1.5">
+                      <MapPin size={13} className="text-secondary" /> Shipment Coordinates
                     </h4>
                     
                     {order.shipping ? (
                       <div className="text-xs space-y-2.5 text-on-surface-variant leading-relaxed">
-                        <div className="bg-[#FAFDF6] border border-outline-variant/30 rounded-xl p-3 font-sans text-[11px] leading-relaxed select-all">
+                        <div className="bg-white border border-outline-variant/30 rounded-xl p-3 font-sans text-[11px] leading-relaxed select-all">
                           {order.shipping.address} <br />
                           <strong className="text-primary">{order.shipping.state} – {order.shipping.pincode}</strong>
                         </div>
                         <div className="space-y-1.5 text-[10px] uppercase font-bold tracking-wider">
                           <div className="flex justify-between">
                             <span className="text-on-surface-variant/70">Payment Order ID:</span>
-                            <span className="font-mono text-[#1e2f14] font-medium ml-1">{order.id}</span>
+                            <span className="font-mono text-primary font-medium ml-1">{order.id}</span>
                           </div>
                           <div className="flex justify-between border-t border-outline-variant/15 pt-1.5">
                             <span className="text-on-surface-variant/70">Payment Ref Code:</span>
-                            <span className="font-mono text-[#1e2f14]/80 ml-1">{order.paymentId.substring(0, 16)}...</span>
+                            <span className="font-mono text-primary/80 ml-1">{order.paymentId.substring(0, 16)}...</span>
                           </div>
                         </div>
                       </div>
@@ -938,7 +952,7 @@ export default function Admin() {
                   </div>
 
                   <div className="text-right flex flex-col items-start md:items-end gap-1 font-sans text-[10px] text-on-surface-variant font-medium shrink-0">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-[#48671c] font-black uppercase rounded border border-green-200">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 font-black uppercase rounded border border-green-200">
                       <CheckCircle size={10} /> Razorpay Verified
                     </span>
                     <span className="font-mono text-gray-400 selection:bg-yellow-100">
@@ -960,10 +974,10 @@ export default function Admin() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-outline-variant/35 shadow-xs">
               <div>
                 <h2 className="font-serif text-2xl font-black text-primary flex items-center gap-2">
-                  🌿 Botanical Catalog Ledger
+                  📐 Studio Catalog Ledger
                 </h2>
                 <p className="text-on-surface-variant text-xs mt-1">
-                  Create new recipes, adjust whole-leaf tea prices, modify flavor profiles, and update scientific botanical portfolios.
+                  Manage products, select showcase categories, adjust retail prices, and update technical design portfolios.
                 </p>
                 <div className="mt-2 flex items-center gap-2">
                   <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold rounded-full ${
@@ -975,25 +989,25 @@ export default function Admin() {
                     {prodDbConnected ? 'MySQL Database Connected' : 'Local Sandbox Mode (Pre-seeded)'}
                   </span>
                   <span className="text-[10px] text-gray-400 font-mono">
-                    Total: {products.length} blend(s)
+                    Total: {products.length} product(s)
                   </span>
                 </div>
               </div>
 
               <button
                 onClick={handleOpenAddProduct}
-                className="px-5 py-3 bg-[#48671c] hover:bg-[#48671c]/90 text-white font-sans text-xs font-bold rounded-full transition-all inline-flex items-center gap-2 cursor-pointer shadow-md"
+                className="px-5 py-3 bg-primary hover:brightness-110 text-white font-sans text-xs font-bold rounded-full transition-all inline-flex items-center gap-2 cursor-pointer shadow-md"
               >
-                <Plus size={14} /> Add New Botanical Blend
+                <Plus size={14} /> Add New Studio Product
               </button>
             </div>
 
             {/* Editing Form Overlay / Drawer */}
             {isProductFormOpen && (
-              <div className="bg-white rounded-2xl border border-[#48671c]/30 p-6 md:p-8 shadow-lg space-y-6">
+              <div id="studio-product-form" className="bg-white rounded-2xl border border-outline-variant p-6 md:p-8 shadow-lg space-y-6">
                 <div className="flex justify-between items-center border-b border-outline-variant pb-4">
                   <h3 className="font-serif text-xl font-black text-on-surface">
-                    {editingProductId ? "📝 Modify Botanical Blend Details" : "🌱 Formulate Brand New Herbal Soup Dip"}
+                    {editingProductId ? "📝 Modify Studio Product Details" : "📐 Configure Brand New Design Object"}
                   </h3>
                   <button 
                     onClick={() => setIsProductFormOpen(false)}
@@ -1010,11 +1024,11 @@ export default function Admin() {
                       <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Product ID (Unique, slug format)</label>
                       <input
                         type="text"
-                        placeholder="e.g. mudakathan-soup"
+                        placeholder="e.g. artisan-wool-sleeve"
                         value={formId}
                         onChange={(e) => setFormId(e.target.value)}
                         disabled={editingProductId !== null}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] disabled:bg-gray-100 disabled:cursor-not-allowed text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary disabled:bg-gray-100 disabled:cursor-not-allowed text-on-surface"
                       />
                     </div>
 
@@ -1022,21 +1036,21 @@ export default function Admin() {
                       <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Product Name (Human Label)</label>
                       <input
                         type="text"
-                        placeholder="e.g. Mudakathan Soup Dip"
+                        placeholder="e.g. Artisan Wool Sleeve"
                         value={formName}
                         onChange={(e) => setFormName(e.target.value)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface font-semibold"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface font-semibold"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Scientific Name (Botanical classification)</label>
+                      <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Model Identifier (e.g. Fabric type / Model code)</label>
                       <input
                         type="text"
-                        placeholder="e.g. Cardiospermum halicacabum"
+                        placeholder="e.g. Model: SL-200"
                         value={formScientificName}
                         onChange={(e) => setFormScientificName(e.target.value)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs italic focus:outline-none focus:border-[#48671c] text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface"
                       />
                     </div>
 
@@ -1044,10 +1058,10 @@ export default function Admin() {
                       <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Retail Selling Price (in Rupees)</label>
                       <input
                         type="number"
-                        placeholder="e.g. 249"
+                        placeholder="e.g. 2499"
                         value={formPrice}
                         onChange={(e) => setFormPrice(Number(e.target.value))}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface font-bold text-primary"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface font-bold text-primary"
                       />
                     </div>
 
@@ -1055,25 +1069,25 @@ export default function Admin() {
                       <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Original Price (For strikeoff, optional)</label>
                       <input
                         type="number"
-                        placeholder="e.g. 299"
+                        placeholder="e.g. 2999"
                         value={formOriginalPrice}
                         onChange={(e) => setFormOriginalPrice(e.target.value === "" ? "" : Number(e.target.value))}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Category Target Focus</label>
+                      <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Design Category</label>
                       <select
                         value={formCategory}
                         onChange={(e) => setFormCategory(e.target.value as any)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl h-12 px-4 py-2 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface font-semibold"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl h-12 px-4 py-2 font-sans text-xs focus:outline-none focus:border-primary text-on-surface font-semibold"
                       >
-                        <option value="Digestion">Digestion focus</option>
-                        <option value="Immunity">Immunity focus</option>
-                        <option value="Skin">Skin focus</option>
-                        <option value="Weight">Weight focus</option>
-                        <option value="Detox">Detox focus</option>
+                        <option value="Workspace">Workspace Equipment</option>
+                        <option value="Essentials">Daily Essentials</option>
+                        <option value="Carry">Carry Organizers</option>
+                        <option value="Sleeves">Device Sleeves</option>
+                        <option value="Lifestyle">Lifestyle Accessories</option>
                       </select>
                     </div>
                   </div>
@@ -1086,7 +1100,7 @@ export default function Admin() {
                         placeholder="https://images.unsplash.com/..."
                         value={formHeroImage}
                         onChange={(e) => setFormHeroImage(e.target.value)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] font-mono text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary font-mono text-on-surface"
                       />
                     </div>
 
@@ -1097,7 +1111,7 @@ export default function Admin() {
                         placeholder="https://images.unsplash.com/..."
                         value={formSecondaryImage}
                         onChange={(e) => setFormSecondaryImage(e.target.value)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] font-mono text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary font-mono text-on-surface"
                       />
                     </div>
                   </div>
@@ -1106,10 +1120,10 @@ export default function Admin() {
                     <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Short Pitch Description (Seen on lists)</label>
                     <input
                       type="text"
-                      placeholder="e.g. Relieves digestive soreness, reduces excessive bloating and flatulence."
+                      placeholder="e.g. Double-wall borosilicate setup for ultimate utility and clean finish."
                       value={formShortDescription}
                       onChange={(e) => setFormShortDescription(e.target.value)}
-                      className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface"
+                      className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface"
                     />
                   </div>
 
@@ -1117,22 +1131,22 @@ export default function Admin() {
                     <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Detailed Editorial Bio Description (Product Page paragraph)</label>
                     <textarea
                       rows={3}
-                      placeholder="Deep wisdom context..."
+                      placeholder="Detailed design features, premium specifications, materials, and dimensional sizing..."
                       value={formDescription}
                       onChange={(e) => setFormDescription(e.target.value)}
-                      className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface leading-relaxed"
+                      className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface leading-relaxed"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Flavor Profile & Taste Notes Summary</label>
+                      <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Material Composition / Color Finish</label>
                       <input
                         type="text"
-                        placeholder="e.g. Mildly bitter, light earthy aroma, cleanly sweetened finish."
+                        placeholder="e.g. Full-grain vegetable tanned leather with saddle stitching."
                         value={formFlavorProfile}
                         onChange={(e) => setFormFlavorProfile(e.target.value)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface"
                       />
                     </div>
 
@@ -1140,10 +1154,10 @@ export default function Admin() {
                       <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider block">Custom Tags (Comma-separated)</label>
                       <input
                         type="text"
-                        placeholder="e.g. Organic, Bloating Relief, Traditional, Antiviral"
+                        placeholder="e.g. Workspace, Premium Desk, Genuine Leather"
                         value={formTags}
                         onChange={(e) => setFormTags(e.target.value)}
-                        className="w-full bg-[#FAFDF6] border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-[#48671c] text-on-surface"
+                        className="w-full bg-white border border-outline-variant/30 rounded-xl px-4 py-3 font-sans text-xs focus:outline-none focus:border-primary text-on-surface"
                       />
                     </div>
                   </div>
@@ -1158,9 +1172,9 @@ export default function Admin() {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 bg-[#48671c] hover:brightness-110 text-white font-sans text-xs font-bold rounded-full transition-all cursor-pointer shadow-md inline-flex items-center gap-1.5"
+                      className="px-6 py-2.5 bg-primary hover:brightness-110 text-white font-sans text-xs font-bold rounded-full transition-all cursor-pointer shadow-md inline-flex items-center gap-1.5"
                     >
-                      <Save size={14} /> Save Botanical Recipe
+                      <Save size={14} /> Save Showcase Product
                     </button>
                   </div>
                 </form>
@@ -1180,7 +1194,7 @@ export default function Admin() {
                         className="w-full h-full object-cover" 
                       />
                       <div className="absolute top-3.5 left-3.5 right-3.5 flex justify-between items-start">
-                        <span className="px-3 py-1 bg-[#48671c] text-white rounded-full text-[9px] uppercase font-extrabold tracking-widest shadow-sm">
+                        <span className="px-3 py-1 bg-primary text-white rounded-full text-[9px] uppercase font-extrabold tracking-widest shadow-sm border border-outline-variant/10">
                           {p.category}
                         </span>
                         <div className="bg-black/40 text-white font-mono text-[9px] px-2.5 py-1 rounded backdrop-blur-xs font-bold">
@@ -1196,7 +1210,7 @@ export default function Admin() {
                           {p.name}
                         </h4>
                         <div className="flex items-baseline gap-1.5 shrink-0">
-                          <span className="font-serif font-black text-[#48671c]">{formatCurrency(p.price)}</span>
+                          <span className="font-serif font-black text-secondary">{formatCurrency(p.price)}</span>
                           {p.originalPrice && (
                             <span className="text-xs text-on-surface-variant line-through opacity-50">{formatCurrency(p.originalPrice)}</span>
                           )}
@@ -1204,8 +1218,8 @@ export default function Admin() {
                       </div>
 
                       {p.scientificName && (
-                        <p className="font-serif italic text-xs text-[#48671c]/80 mb-3 block">
-                          Botanical Name: {p.scientificName}
+                        <p className="font-serif italic text-xs text-secondary/80 mb-3 block">
+                          Model Ref: {p.scientificName}
                         </p>
                       )}
 
@@ -1226,12 +1240,12 @@ export default function Admin() {
                   {/* Actions footer */}
                   <div className="bg-surface-container-lowest border-t border-outline-variant/30 px-5 py-4 flex justify-between items-center gap-3">
                     <span className="text-[10px] italic text-gray-400 font-serif">
-                      Flavor profile: "{p.flavorProfile}"
+                      Material finish: "{p.flavorProfile}"
                     </span>
                     <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={() => handleOpenEditProduct(p)}
-                        className="p-2.5 bg-[#48671c]/10 text-[#48671c] hover:bg-[#48671c]/20 rounded-full transition-all cursor-pointer"
+                        className="p-2.5 bg-primary/10 text-primary hover:bg-primary/20 rounded-full transition-all cursor-pointer"
                         title="Edit product"
                       >
                         <Edit size={14} />
@@ -1252,7 +1266,7 @@ export default function Admin() {
         )}
 
         <div className="mt-16 text-center">
-          <Link to="/" className="text-xs text-[#48671c] font-bold hover:underline flex items-center justify-center gap-1 cursor-pointer">
+          <Link to="/" className="text-xs text-primary font-bold hover:underline flex items-center justify-center gap-1 cursor-pointer">
             Return to Storefront Platform <ExternalLink size={12} />
           </Link>
         </div>

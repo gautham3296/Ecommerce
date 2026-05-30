@@ -5,9 +5,10 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Search, Compass, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'motion/react';
+import Logo from './Logo';
 
 export default function Header() {
   const { itemCount, setIsCartOpen } = useCart();
@@ -53,9 +54,8 @@ export default function Header() {
             >
               {isMobileMenuOpen ? <X className="w-5 h-5 text-primary" /> : <Menu className="w-5 h-5 text-primary" />}
             </button>
-            <Link to="/" className="flex items-center gap-1 md:gap-2 group">
-              <Compass className="text-primary w-5 h-5 md:w-7 md:h-7 group-hover:rotate-12 transition-transform" />
-              <span className="font-serif text-base sm:text-lg md:text-2xl text-primary tracking-tight font-bold">Ecommerce</span>
+            <Link to="/" className="group block select-none">
+              <Logo />
             </Link>
           </div>
 

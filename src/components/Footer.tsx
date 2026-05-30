@@ -4,8 +4,9 @@
  */
 
 import React from 'react';
-import { Compass, Mail, Instagram, Facebook, Youtube } from 'lucide-react';
+import { Mail, Instagram, Facebook, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -13,9 +14,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <Compass className="text-primary w-6 h-6 animate-spin" style={{ animationDuration: '40s' }} />
-              <span className="font-serif text-xl text-primary font-bold">Ecommerce</span>
+            <div className="group block select-none">
+              <Logo />
             </div>
             <p className="font-sans text-sm text-on-surface-variant leading-relaxed max-w-xs">
               Crafting premium minimalist workspace peripherals and curated lifestyle assets. Sourced sustainably with clean guidelines.
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-6 opacity-60 text-[11px] uppercase tracking-wider">
-          <p>© 2026 Ecommerce. All Rights Reserved.</p>
+          <p>© 2026 pcessentials.store. All Rights Reserved.</p>
           <div className="flex flex-wrap gap-x-8 gap-y-2 select-none justify-center">
             <Link to="/orders" className="hover:text-primary font-bold">Track My Orders</Link>
             <Link to="/admin" className="hover:text-primary font-bold">Admin Console</Link>

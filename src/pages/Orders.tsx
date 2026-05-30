@@ -154,26 +154,26 @@ export default function Orders() {
   };
 
   return (
-    <div className="bg-[#FAFDF6] min-h-screen py-10 md:py-16">
+    <div className="bg-surface min-h-screen py-10 md:py-16">
       <div className="max-w-4xl mx-auto px-5">
         
         {/* Header Section */}
         <div className="border-b border-outline-variant/30 pb-8 mb-10 text-center md:text-left flex flex-col md:flex-row md:justify-between md:items-end gap-4">
           <div>
-            <span className="font-sans text-xs uppercase tracking-[0.3em] font-extrabold text-[#48671c] bg-[#48671c]/10 px-4 py-1.5 rounded-full w-fit inline-block mb-3">
+            <span className="font-sans text-xs uppercase tracking-[0.3em] font-extrabold text-secondary bg-secondary-container px-4 py-1.5 rounded-full w-fit inline-block mb-3">
               📦 Secure Customer Portal
             </span>
             <h1 className="font-serif text-3xl md:text-5xl font-extrabold text-primary mb-2">
               Your Order <span className="italic font-normal">Vault</span>
             </h1>
             <p className="text-on-surface-variant text-sm max-w-lg">
-              Unlock dispatch logs, custom recipes, and secure transaction slips by authenticating with your delivery credentials.
+              Unlock dispatch logs, custom items, and secure transaction slips by authenticating with your delivery credentials.
             </p>
           </div>
           {hasSearched && (
             <button
               onClick={clearSession}
-              className="text-xs font-semibold text-primary underline hover:text-[#344d13] shrink-0 self-center md:self-end cursor-pointer"
+              className="text-xs font-semibold text-primary underline hover:opacity-80 shrink-0 self-center md:self-end cursor-pointer"
             >
               Search Different Profile
             </button>
@@ -202,8 +202,8 @@ export default function Orders() {
             <form onSubmit={handleSearchSubmit} className="space-y-4">
               {/* Name field */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[#1e2f14] flex items-center gap-1.5 font-sans pl-1">
-                  <User size={12} className="text-[#48671c]" /> Consignee Full Name
+                <label className="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-1.5 font-sans pl-1">
+                  <User size={12} className="text-secondary" /> Consignee Full Name
                 </label>
                 <input 
                   type="text"
@@ -211,14 +211,14 @@ export default function Orders() {
                   value={nameInput}
                   onChange={(e) => { setNameInput(e.target.value); setErrorMsg(null); }}
                   placeholder="e.g. Gautham S"
-                  className="w-full bg-[#FAFDF6] border border-outline-variant/40 rounded-xl px-4 py-3 font-sans text-sm focus:outline-none focus:border-[#48671c] transition-colors"
+                  className="w-full bg-white border border-outline-variant/40 rounded-xl px-4 py-3 font-sans text-sm focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
 
               {/* Number field */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[#1e2f14] flex items-center gap-1.5 font-sans pl-1">
-                  <Phone size={12} className="text-[#48671c]" /> Mobile Contact Code
+                <label className="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-1.5 font-sans pl-1">
+                  <Phone size={12} className="text-secondary" /> Mobile Contact Code
                 </label>
                 <input 
                   type="tel"
@@ -226,14 +226,14 @@ export default function Orders() {
                   value={contactInput}
                   onChange={(e) => { setContactInput(e.target.value); setErrorMsg(null); }}
                   placeholder="e.g. 9876543210"
-                  className="w-full bg-[#FAFDF6] border border-outline-variant/40 rounded-xl px-4 py-3 font-mono text-sm focus:outline-none focus:border-[#48671c] transition-colors"
+                  className="w-full bg-white border border-outline-variant/40 rounded-xl px-4 py-3 font-mono text-sm focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSearching}
-                className="w-full py-4 bg-primary text-white rounded-full font-sans text-xs font-bold uppercase tracking-widest hover:bg-[#344d13] tracking-widest transition-all shadow-md mt-6 flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-4 bg-primary text-white rounded-full font-sans text-xs font-bold uppercase tracking-widest hover:brightness-110 tracking-widest transition-all shadow-md mt-6 flex justify-center items-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSearching ? 'Querying Secure Vault...' : 'Access My Order Slip'}
               </button>
@@ -290,7 +290,7 @@ export default function Orders() {
                 className="bg-white rounded-3xl border border-outline-variant/35 overflow-hidden shadow-xs hover:shadow-md transition-shadow"
               >
                 {/* Order Top Bar Info */}
-                <div className="bg-[#1e2f14]/5 md:px-8 px-5 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/20 text-xs">
+                <div className="bg-primary-container/10 md:px-8 px-5 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/20 text-xs">
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
                     <div>
                       <span className="text-on-surface-variant uppercase tracking-wider font-bold block text-[9px] mb-0.5">Order Placed</span>
@@ -305,7 +305,7 @@ export default function Orders() {
                     </div>
                     <div>
                       <span className="text-on-surface-variant uppercase tracking-wider font-bold block text-[9px] mb-0.5">Total Amount</span>
-                      <span className="font-serif font-black text-sm text-[#48671c]">{formatCurrency(order.amount)}</span>
+                      <span className="font-serif font-black text-sm text-secondary">{formatCurrency(order.amount)}</span>
                     </div>
                   </div>
                   <div className="text-right w-full sm:w-auto">
@@ -319,8 +319,8 @@ export default function Orders() {
                   
                   {/* Items List */}
                   <div className="md:col-span-2 p-6 md:p-8 space-y-4">
-                    <h4 className="font-serif text-sm font-bold border-b border-outline-variant/15 pb-2 mb-4 text-[#1e2f14]">
-                      Botanical Packages
+                    <h4 className="font-serif text-sm font-bold border-b border-outline-variant/15 pb-2 mb-4 text-primary">
+                      Design Showcase Items
                     </h4>
                     <div className="space-y-4">
                       {order.items.map((item) => (
@@ -350,12 +350,12 @@ export default function Orders() {
                   </div>
 
                   {/* Delivery Info column */}
-                  <div className="p-6 md:p-8 bg-[#FAFDF6]/30 space-y-4">
-                    <h4 className="font-serif text-sm font-bold border-b border-outline-variant/15 pb-2 mb-4 flex items-center gap-1.5 text-[#1e2f14]">
-                      <MapPin size={14} className="text-[#48671c]" /> Shipping Address
+                  <div className="p-6 md:p-8 bg-surface-container-low/30 space-y-4">
+                    <h4 className="font-serif text-sm font-bold border-b border-outline-variant/15 pb-2 mb-4 flex items-center gap-1.5 text-primary">
+                      <MapPin size={14} className="text-secondary" /> Shipping Address
                     </h4>
                     {order.shipping ? (
-                      <div className="space-y-3 text-xs leading-relaxed text-on-surface-variant">
+                       <div className="space-y-3 text-xs leading-relaxed text-on-surface-variant">
                         <div className="flex items-start gap-2">
                           <User size={12} className="text-primary mt-0.5 shrink-0" />
                           <div>
@@ -375,7 +375,7 @@ export default function Orders() {
                           </div>
                         </div>
                         <div className="pt-2">
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#48671c]/10 text-[#48671c] text-[10px] font-bold uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-secondary text-[10px] font-bold uppercase tracking-wider">
                             <ShieldCheck size={11} /> Verified Gateway
                           </span>
                         </div>
@@ -388,7 +388,7 @@ export default function Orders() {
                 </div>
 
                 {/* Footer status link bar */}
-                <div className="bg-[#FAFDF6] border-t border-outline-variant/25 px-6 md:px-8 py-4 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs">
+                <div className="bg-surface-container-low border-t border-outline-variant/25 px-6 md:px-8 py-4 flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center text-xs">
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="text-[10px] text-on-surface-variant font-extrabold uppercase tracking-wider">Status:</span>
                     {order.status === 'Packed' ? (
